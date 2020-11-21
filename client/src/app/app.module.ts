@@ -23,6 +23,10 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ResearchMainComponent } from './research/research-main/research-main.component';
+import { EditComponent } from './research/edit/edit.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ServerErrorComponent,
     MemberCardComponent,
     MemberEditComponent,
+    ResearchMainComponent,
+    EditComponent,
+    PhotoEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +55,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FormsModule,
     SharedModule,
     NgxSpinnerModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

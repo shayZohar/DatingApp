@@ -1,0 +1,59 @@
+<div>
+  <tabset>
+    <tab heading="Researchers" id="tab1">
+      <div class="col-2" style="padding: 5px;">
+        <button type="button" class="btn btn-primary" (click)="openModal(template)">Add new researcher</button>
+        <!-- adding new researcher-->
+        <ng-template style="width: fit-content !important;" #template>
+          <div class="modal-header">
+            <h4 class="modal-title pull-left">Adding new Researcher</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form style="display: table-caption;" #editForm="ngForm" id="editForm" (ngSubmit)="addResearcher()">
+              <div class="form-inline">
+                <label for="firstname">First Name:</label>
+                <input [(ngModel)]="researcher.firstname" type="text" name="firstname" class="form-control mx-2">
+                <label for="lastname">Last Name:</label>
+                <input [(ngModel)]="researcher.lastname" type="text" name="lastname" class="form-control mx-2">
+              </div>
+              <div class="form-inline">
+                <label for="city">Email:</label>
+                <input [(ngModel)]="researcher.email" type="text" name="email" class="form-control mx-2">
+                <label for="city">Phone:</label>
+                <input [(ngModel)]="researcher.phone" type="text" name="phone" class="form-control mx-2">
+              </div>
+              <div class="form-inline">
+                <!--the ' form="editForm" ' property is to hook this button to the form below by it's id property-->
+                <button [disabled]="!editForm.dirty" form="editForm" type="submit"
+                  class="btn btn-success btn-block">ADD</button>
+              </div>
+            </form>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-2">
+        <div *ngFor="let researcher of researchers" class="card mb-4">
+          <div class="card-img-wrapper">
+            <label style="margin-left: 20%;">{{researcher.firstname }} {{researcher.lastname}}</label>
+            <img src="{{'./assets/user.png'}}" alt="{{researcher.firstname}}" class="card-img-top">
+            <ul class="list-inline member-icons animate text-center">
+              <li class="list-inline-item"><button type="button" class="btn btn-primary"
+                  (click)='setCurrentResearcher(researcher)'><i class="fa fa-user"></i></button></li>
+              <li class="list-inline-item"><button type="button" class="btn btn-primary" (click)="deleteResearcher(researcher)"><i
+                    class="fa fa-trash"></i></button></li>
+            </ul>
+          </div>
+          <div class="card-body p-1">
+
+          </div>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Researches">
+      <h1 *ngFor="let research of researches">{{research.name}}</h1>
+    </tab>
+  </tabset>
+</div>

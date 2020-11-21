@@ -1,0 +1,67 @@
+<div class="row" *ngIf="researcher">
+  <div class="col-4">
+    <h1>Your Profile</h1>
+  </div>
+  <div class="col-8">
+    <!--'edirForm' is the id of the form, so we can get inside it and check if it got dirty-->
+    <div class="alert alert-info" *ngIf="editForm.dirty">
+      <strong>Information: </strong> You have made changes. Any unsaved changes will be lost
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <img src="{{'./assets/user.png'}}" alt="{{researcher.firstname}}" class="card-img-top img-thumbnail">
+      <div class="card-body">
+
+      </div>
+      <div class="card-footer">
+        <!--the ' form="editForm" ' property is to hook this button to the form below by it's id property-->
+        <button [disabled]="!editForm.dirty" form="editForm" type="submit" class="btn btn-success btn-block">Save
+          Changes</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <tabset class="member-tabset">
+      <tab heading='About {{researcher.firstname}}'>
+        <form style="display: inline-flex;" #editForm="ngForm" id="editForm" (ngSubmit)="update()">
+          <div class="form-inline">
+            <label for="firstname">First Name:</label>
+            <input [(ngModel)]="researcher.firstname" type="text" name="firstname" class="form-control mx-2">
+            <label for="lastname">Last Name:</label>
+            <input [(ngModel)]="researcher.lastname" type="text" name="lastname" class="form-control mx-2">
+          </div>
+          <div class="form-inline">
+            <label for="city">Email:</label>
+            <input [(ngModel)]="researcher.email" type="text" name="email" class="form-control mx-2">
+            <label for="city">Phone:</label>
+            <input [(ngModel)]="researcher.phone" type="text" name="phone" class="form-control mx-2">
+          </div>
+          <div class="form-inline">
+            <div class="btn-group" dropdown>
+              <button id="button-animated" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                aria-controls="dropdown-animated">
+                Researches assigned to <span class="caret"></span>
+              </button>
+              <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+                aria-labelledby="button-animated">
+                <li role="menuitem" *ngFor="let research of researchesAssignedTo">
+                  <a class="dropdown-item" style="cursor: pointer;" (click)="chosenResearchToDelete(research)">{{research.name}}, {{research.university}}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="form-inline" *ngIf="researchToDelete">
+              <label>
+                <strong>Chosen :</strong> {{researchToDelete.name}}
+              </label>
+              <button type="button" class="btn btn-warning" (click)="deleteResearch()">Delete researcher from this
+                research?</button>
+            </div>
+          </div>
+        </form>
+      </tab>
+    </tabset>
+
+  </div>
+
+</div>

@@ -1,3 +1,6 @@
+import { Researcher } from './_models/researcher';
+import { EditComponent } from './research/edit/edit.component';
+import { ResearchMainComponent } from './research/research-main/research-main.component';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
@@ -26,10 +29,12 @@ const routes: Routes = [
       { path: 'messages', component: MessagesComponent },
     ],
   },
-  { path: 'errors', component: TestErrorsComponent },
+  { path: 'researches', component: ResearchMainComponent },
+  { path: 'research/edit-researcher', component: EditComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: NotFoundComponent, pathMatch: 'full' },
+
 ];
 
 @NgModule({
