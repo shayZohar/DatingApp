@@ -1,3 +1,4 @@
+import { MemberDetailedResolver } from './_resolvers/member-detailed-resolver';
 import { Researcher } from './_models/researcher';
 import { EditComponent } from './research/edit/edit.component';
 import { ResearchMainComponent } from './research/research-main/research-main.component';
@@ -23,7 +24,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'members', component: MemberListComponent },
-      { path: 'members/:username', component: MemberDetailComponent },
+      { path: 'members/:username', component: MemberDetailComponent, resolve: {member: MemberDetailedResolver}},
       { path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard] },
       { path: 'lists', component: ListsComponent },
       { path: 'messages', component: MessagesComponent },
