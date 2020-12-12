@@ -26,7 +26,7 @@ namespace API.Data
         public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
             var query = _context.Users.AsQueryable();
-            query = query.Where(u => u.Username != userParams.CurrentUsername);
+            query = query.Where(u => u.UserName != userParams.CurrentUsername);
             query = query.Where(u => u.Gender == userParams.Gender);
 
             // calculating age filtering
@@ -50,7 +50,7 @@ namespace API.Data
         // using projection instead of converting -- instead of GetUserAsync()
         public async Task<MemberDto> GetMemberAsync(string username)
         {
-            return await _context.Users.Where(x => x.Username == username)
+            return await _context.Users.Where(x => x.UserName == username)
             .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
         }
         public async Task<AppUser> GetUserById(int id)
@@ -60,7 +60,7 @@ namespace API.Data
 
         public async Task<AppUser> GetUserByUserName(string username)
         {
-            return await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(x => x.Username == username);
+            return await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(x => x.UserName == username);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
