@@ -16,6 +16,9 @@ namespace API.Data
         // the name of the table. The Users table is provided by indentitydbcontext so we dont need to declare it here
         public DbSet<UserLike> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Connection> Connections { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
