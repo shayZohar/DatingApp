@@ -22,8 +22,6 @@ namespace API.Helpers
                     src.Sender.Photos.FirstOrDefault(x => x.IsMain).Url))
                 .ForMember(dest => dest.RecipentPhotoUrl,opt => opt.MapFrom(src => 
                     src.Recipent.Photos.FirstOrDefault(x => x.IsMain).Url));
-            CreateMap<DateTime,DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d,DateTimeKind.Utc)); // add z to the end of date to be correct time zone
-
         }
     }
 }

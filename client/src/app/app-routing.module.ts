@@ -33,8 +33,7 @@ const routes: Routes = [
       { path: 'admin', component: AdminPanelComponent ,canActivate: [AdminGuard]},
     ],
   },
-  { path: 'researches', component: ResearchMainComponent },
-  { path: 'research/edit-researcher', component: EditComponent},
+
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: NotFoundComponent, pathMatch: 'full' },
