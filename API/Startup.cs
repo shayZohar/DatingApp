@@ -55,12 +55,16 @@ namespace API
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseDefaultFiles(); // if there is an "index.htm" file in the app's folder, it will use that(this is for deployment)
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 // this takes care when user connects
                 endpoints.MapHub<PresenceHub>("hubs/presence");
                 endpoints.MapHub<MessageHub>("hubs/message");
+                endpoints.MapFallbackToController("Index","Fallback"); //(name of function inside controller, name of controller)
             });
         }
     }
