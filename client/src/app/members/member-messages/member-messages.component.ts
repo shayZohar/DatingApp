@@ -14,6 +14,7 @@ export class MemberMessagesComponent implements OnInit {
   @Input() messages: Message[];
   @Input() username: string;
   messageContent: string;
+  loading = false;
 
   // we set it to be public so we can access it from the HTML template
   // we subscribe to the message thread in the template
@@ -23,9 +24,10 @@ export class MemberMessagesComponent implements OnInit {
   }
 
   sendMessage() {
+    this.loading = true;
     // because we use Promise in this method, we cannot subscribe to it, instead- we use 'then'
     this.messageService.sendMessage(this.username, this.messageContent).then(() => {
       this.messageForm.reset();
-    });
+    }).finally(() => this.loading = false);
   }
 }

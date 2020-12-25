@@ -1,3 +1,4 @@
+import { BusyService } from './busy.service';
 import { Group } from './../_models/group';
 import { BehaviorSubject } from 'rxjs';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
@@ -19,14 +20,16 @@ export class MessageService {
   private MessageThreadSource = new BehaviorSubject<Message[]>([]);
   messageThread$ = this.MessageThreadSource.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private busyService: BusyService) {}
 
   createHubConnection(user: User, otherUsername: string) {
+    this.busyService.busy();
     this.hubConnection = new HubConnectionBuilder().withUrl(this.hubUrl +'message?user=' + otherUsername, {
       accessTokenFactory: () => user.token
     }).withAutomaticReconnect().build();
 
-    this.hubConnection.start().catch(error => console.log(error));
+    this.hubConnection.start()
+    .catch(error => console.log(error)).finally(() => this.busyService.idle());
 
     this.hubConnection.on('ReceiveMessageThread',messages => {
       this.MessageThreadSource.next(messages); // getting the messages to the observable
@@ -55,6 +58,7 @@ export class MessageService {
 
   stopHubConnection() {
     if(this.hubConnection) {
+      this.MessageThreadSource.next([]); // clearing the messages when disconnecting so if other user get in it wont be shown for 1 second
       this.hubConnection.stop();
     }
   }
