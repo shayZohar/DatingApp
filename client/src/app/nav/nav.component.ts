@@ -12,6 +12,7 @@ import { Toast, ToastrModule, ToastrService } from 'ngx-toastr';
 })
 export class NavComponent implements OnInit {
   model: any = {};
+  collapsed: boolean = false;
 
   constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) {}
 
@@ -22,6 +23,7 @@ export class NavComponent implements OnInit {
     this.accountService.login(this.model).subscribe(
       (response) => {
         this.router.navigateByUrl('/members');
+        this.collapsed = false;
       },
       (error) => {
         console.log(error);
@@ -32,6 +34,11 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.accountService.logout();
+    this.collapsed = false;
     this.router.navigateByUrl('/');
+  }
+
+  navCollapse() {
+    this.collapsed = !this.collapsed;
   }
 }

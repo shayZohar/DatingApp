@@ -3,11 +3,11 @@
     <a class="navbar-brand" routerLink='/' routerLinkActive='active'>Dating App</a>
     <!--this is for responsive hamburger, NEED TO GET IT WORK LATER BY PRESSING ON HAMBURGER-->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" (click)="navCollapse()">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
+    <div [ngClass]="collapsed? 'collapse show navbar-collapse' : 'collapse  navbar-collapse'" id="navbarCollapse">
+      <ul [ngClass]="collapsed? 'navbar-nav mr-auto mt-2 mt-lg-0' :'navbar-nav mr-auto'">
 
         <ng-container *ngIf="accountService.currentUser$ | async">
           <li class="nav-item">
