@@ -34,6 +34,7 @@ namespace API.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
                     ValidateIssuer = false,
                     ValidateAudience = false,
+                    
                 };
 
                 // for signalR we need to send the authentication via query string because it cannot be sent by headers
